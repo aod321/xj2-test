@@ -1,7 +1,8 @@
 
 #ifndef		__CONFIG_H
 #define		__CONFIG_H
-
+void stop();
+void Line_Count();
 
 /*********************************************************/
 

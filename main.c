@@ -12,18 +12,19 @@ unsigned char g;//常数g
 //将右电机信号线接P25 pwm0
 //将左电机信号线接P25 pwm1
 
-sbit led1 = P0^4;  //循迹模块管脚
-sbit led2 = P0^5;
-sbit led3 = P0^6;
-sbit led4 = P0^7;
-sbit led5 = P2^4;
-sbit led6 = P2^5;
-sbit led7 = P2^0;
-sbit led8 = P2^3;
-u8 time_counter=0;//timer0 计数
-u8 line_counter=0;//黑线 计数
-u8 time_counter1=0;//timer1 计数
-void stop();
+//sbit led1 = P0^4;  //循迹模块管脚
+//sbit led2 = P0^5;
+//sbit led3 = P0^6;
+//sbit led4 = P0^7;
+//sbit led5 = P2^4;
+//sbit led6 = P2^5;
+//sbit led7 = P2^0;
+//sbit led8 = P2^3;
+extern u8 time_counter=0;//timer0 计数
+extern u8 line_counter=0;//黑线 计数
+extern u8 time_counter1=0;//timer1 计数
+extern bit update_flag=0;//timer1 计数标记
+
 //压线标志位
 bit L1=0;//最右侧标志位
 bit L2=0;
@@ -201,8 +202,24 @@ void Inline()		//检测黑线信号，检测到黑线时变为高电平，平时低电平
 		
 //
 		default: break;
-		
 	}
+	
+					Line_Count();
+
+}
+void Line_Count()						//检测黑线条数
+{
+	if(update_flag==1)						//定时100*10us到
+		{
+					update_flag=0;						//标记位清空
+
+				if(line_counter <=1)				//如果该时间内没有第二根线
+				{
+					line_counter=0;						//黑线数量清空		
+					TR1=0;										//关闭计时器
+				}
+		}
+
 		
 }
 

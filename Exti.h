@@ -16,6 +16,7 @@
 #define	__EXTI_H
 
 #include	"config.h"
+void	EXTI_config();
 
 #define	EXT_INT0			0	//初始化外中断0
 #define	EXT_INT1			1	//初始化外中断1
