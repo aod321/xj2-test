@@ -1,0 +1,172 @@
+C51 COMPILER V9.52.0.0   TIMER                                                             04/07/2016 17:40:32 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE TIMER
+OBJECT MODULE PLACED IN timer.OBJ
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE timer.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          
+   2          
+   3          /*************  功能说明  **************
+   4          
+   5          本文件为STC15xxx系列的定时器初始化和中断程序,用户可以在这个文件中修改自己需要的中断程序.
+   6          
+   7          
+   8          ******************************************/
+   9          
+  10          
+  11          #include  "timer.h"
+  12          
+  13          /********************* Timer0中断函数************************/
+  14          void timer0_int (void) interrupt TIMER0_VECTOR
+  15          {
+  16   1       //
+  17   1       counter++;
+  18   1       
+  19   1      }
+  20          
+  21          /********************* Timer1中断函数************************/
+  22          void timer1_int (void) interrupt TIMER1_VECTOR
+  23          {
+  24   1        // P26 = ~P26;
+  25   1      
+  26   1      }
+  27          
+  28          /********************* Timer2中断函数************************/
+  29          void timer2_int (void) interrupt TIMER2_VECTOR
+  30          {
+  31   1        //P10 = ~P10;
+  32   1      }
+  33          
+  34          /************************ 定时器配置 ****************************/
+  35          void  Timer_config(void)
+  36          {
+  37   1        TIM_InitTypeDef   TIM_InitStructure;          //结构定义
+  38   1        TIM_InitStructure.TIM_Mode      = TIM_16BitAutoReload;  //指定工作模式,   TIM_16BitAutoReload,TIM_16Bit,TI
+             -M_8BitAutoReload,TIM_16BitAutoReloadNoMask
+  39   1        TIM_InitStructure.TIM_Polity    = PolityLow;      //指定中断优先级, PolityHigh,PolityLow
+  40   1        TIM_InitStructure.TIM_Interrupt = ENABLE;       //中断是否允许,   ENABLE或DISABLE
+  41   1        TIM_InitStructure.TIM_ClkSource = TIM_CLOCK_1T;     //指定时钟源,     TIM_CLOCK_1T,TIM_CLOCK_12T,TIM_CLOCK_
+             -Ext
+  42   1        TIM_InitStructure.TIM_ClkOut    = DISABLE;        //是否输出高速脉冲, ENABLE或DISABLE
+  43   1        TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / 100000UL);   //初值,1/100000s  10us
+  44   1        TIM_InitStructure.TIM_Run       = ENABLE;       //是否初始化后启动定时器, ENABLE或DISABLE
+  45   1        Timer_Inilize(Timer0,&TIM_InitStructure);       //初始化Timer0    Timer0,Timer1,Timer2
+  46   1      
+  47   1        TIM_InitStructure.TIM_Mode      = TIM_16BitAutoReload;  //指定工作模式,   TIM_16BitAutoReload,TIM_16Bit,TI
+             -M_8BitAutoReload,TIM_16BitAutoReloadNoMask
+  48   1        TIM_InitStructure.TIM_Polity    = PolityLow;      //指定中断优先级, PolityHigh,PolityLow
+  49   1        TIM_InitStructure.TIM_Interrupt = ENABLE;       //中断是否允许,   ENABLE或DISABLE
+  50   1        TIM_InitStructure.TIM_ClkSource = TIM_CLOCK_1T;     //指定时钟源, TIM_CLOCK_1T,TIM_CLOCK_12T,TIM_CLOCK_Ext
+  51   1        TIM_InitStructure.TIM_ClkOut    = ENABLE;       //是否输出高速脉冲, ENABLE或DISABLE
+  52   1        TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / 1000);   //初值,
+C51 COMPILER V9.52.0.0   TIMER                                                             04/07/2016 17:40:32 PAGE 2   
+
+  53   1        TIM_InitStructure.TIM_Run       = DISABLE;        //是否初始化后启动定时器, ENABLE或DISABLE
+  54   1        Timer_Inilize(Timer1,&TIM_InitStructure);       //初始化Timer1    Timer0,Timer1,Timer2
+  55   1      
+  56   1        TIM_InitStructure.TIM_Interrupt = ENABLE;       //中断是否允许,   ENABLE或DISABLE. (注意: Timer2固定为16位自
+             -动重装, 中断固定为低优先级)
+  57   1        TIM_InitStructure.TIM_ClkSource = TIM_CLOCK_12T;    //指定时钟源,     TIM_CLOCK_1T,TIM_CLOCK_12T,TIM_CLOCK_
+             -Ext
+  58   1        TIM_InitStructure.TIM_ClkOut    = ENABLE;       //是否输出高速脉冲, ENABLE或DISABLE
+  59   1        TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / (50*12));    //初值
+  60   1        TIM_InitStructure.TIM_Run       = DISABLE;        //是否初始化后启动定时器, ENABLE或DISABLE
+  61   1        Timer_Inilize(Timer2,&TIM_InitStructure);       //初始化Timer2    Timer0,Timer1,Timer2
+  62   1      }
+  63          
+  64          
+  65          //========================================================================
+  66          // 函数: u8 Timer_Inilize(u8 TIM, TIM_InitTypeDef *TIMx)
+  67          // 描述: 定时器初始化程序.
+  68          // 参数: TIMx: 结构参数,请参考timer.h里的定义.
+  69          // 返回: 成功返回0, 空操作返回1,错误返回2.
+  70          // 版本: V1.0, 2012-10-22
+  71          //========================================================================
+  72          u8  Timer_Inilize(u8 TIM, TIM_InitTypeDef *TIMx)
+  73          {
+  74   1        if(TIM > Timer2)  return 1; //空操作
+  75   1      
+  76   1        if(TIM == Timer0)
+  77   1        {
+  78   2          TR0 = 0;    //停止计数
+  79   2          if(TIMx->TIM_Interrupt == ENABLE)   ET0 = 1;  //允许中断
+  80   2          else                  ET0 = 0;  //禁止中断
+  81   2          if(TIMx->TIM_Polity == PolityHigh)    PT0 = 1;  //高优先级中断
+  82   2          else                  PT0 = 0;  //低优先级中断
+  83   2          if(TIMx->TIM_Mode >  TIM_16BitAutoReloadNoMask) return 2; //错误
+  84   2          TMOD = (TMOD & ~0x03) | TIMx->TIM_Mode; //工作模式,0: 16位自动重装, 1: 16位定时/计数, 2: 8位自动重装, 3:
+             - 16位自动重装, 不可屏蔽中断
+  85   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_12T)  AUXR &= ~0x80;  //12T
+  86   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_1T)   AUXR |=  0x80;  //1T
+  87   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_Ext)  TMOD |=  0x04;  //对外计数或分频
+  88   2          else                    TMOD &= ~0x04;  //定时
+  89   2          if(TIMx->TIM_ClkOut == ENABLE)  INT_CLKO |=  0x01;  //输出时钟
+  90   2          else              INT_CLKO &= ~0x01;  //不输出时钟
+  91   2          
+  92   2          TH0 = (u8)(TIMx->TIM_Value >> 8);
+  93   2          TL0 = (u8)TIMx->TIM_Value;
+  94   2          if(TIMx->TIM_Run == ENABLE) TR0 = 1;  //开始运行
+  95   2          return  0;    //成功
+  96   2        }
+  97   1      
+  98   1        if(TIM == Timer1)
+  99   1        {
+ 100   2          TR1 = 0;    //停止计数
+ 101   2          if(TIMx->TIM_Interrupt == ENABLE)   ET1 = 1;  //允许中断
+ 102   2          else                  ET1 = 0;  //禁止中断
+ 103   2          if(TIMx->TIM_Polity == PolityHigh)    PT1 = 1;  //高优先级中断
+ 104   2          else                  PT1 = 0;  //低优先级中断
+ 105   2          if(TIMx->TIM_Mode >= TIM_16BitAutoReloadNoMask) return 2; //错误
+ 106   2          TMOD = (TMOD & ~0x30) | TIMx->TIM_Mode; //工作模式,0: 16位自动重装, 1: 16位定时/计数, 2: 8位自动重装
+ 107   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_12T)  AUXR &= ~0x40;  //12T
+ 108   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_1T)   AUXR |=  0x40;  //1T
+ 109   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_Ext)  TMOD |=  0x40;  //对外计数或分频
+ 110   2          else                    TMOD &= ~0x40;  //定时
+ 111   2          if(TIMx->TIM_ClkOut == ENABLE)  INT_CLKO |=  0x02;  //输出时钟
+C51 COMPILER V9.52.0.0   TIMER                                                             04/07/2016 17:40:32 PAGE 3   
+
+ 112   2          else              INT_CLKO &= ~0x02;  //不输出时钟
+ 113   2          
+ 114   2          TH1 = (u8)(TIMx->TIM_Value >> 8);
+ 115   2          TL1 = (u8)TIMx->TIM_Value;
+ 116   2          if(TIMx->TIM_Run == ENABLE) TR1 = 1;  //开始运行
+ 117   2          return  0;    //成功
+ 118   2        }
+ 119   1      
+ 120   1        if(TIM == Timer2)   //Timer2,固定为16位自动重装, 中断无优先级
+ 121   1        {
+ 122   2          AUXR &= ~(1<<4);  //停止计数
+ 123   2          if(TIMx->TIM_Interrupt == ENABLE)     IE2  |=  (1<<2);  //允许中断
+ 124   2          else                    IE2  &= ~(1<<2);  //禁止中断
+ 125   2          if(TIMx->TIM_ClkSource >  TIM_CLOCK_Ext)  return 2;
+ 126   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_12T)  AUXR &= ~(1<<2);  //12T
+ 127   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_1T)   AUXR |=  (1<<2);  //1T
+ 128   2          if(TIMx->TIM_ClkSource == TIM_CLOCK_Ext)  AUXR |=  (1<<3);  //对外计数或分频
+ 129   2          else                    AUXR &= ~(1<<3);  //定时
+ 130   2          if(TIMx->TIM_ClkOut == ENABLE)  INT_CLKO |=  0x04;  //输出时钟
+ 131   2          else              INT_CLKO &= ~0x04;  //不输出时钟
+ 132   2      
+ 133   2          TH2 = (u8)(TIMx->TIM_Value >> 8);
+ 134   2          TL2 = (u8)TIMx->TIM_Value;
+ 135   2          if(TIMx->TIM_Run == ENABLE) AUXR |=  (1<<4);  //开始运行
+ 136   2          return  0;    //成功
+ 137   2        }
+ 138   1        return 2; //错误
+ 139   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    537    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       8
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

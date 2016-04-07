@@ -1,0 +1,5 @@
+"main.obj",
+"pwm.obj",
+"timer.obj" 
+TO "xj" 
+RAMSIZE(256) 
