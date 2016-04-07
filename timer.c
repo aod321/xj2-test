@@ -8,8 +8,11 @@
 ******************************************/
 
 
-#include	"timer.h"
 
+#include	"timer.h"
+extern u8 time_counter;//timer0 计数
+extern u8 line_counter;//黑线 计数
+extern u8 time_counter1;//timer1 计数
 /********************* Timer0中断函数************************/
 void timer0_int (void) interrupt TIMER0_VECTOR
 {
@@ -29,7 +32,7 @@ void timer0_int (void) interrupt TIMER0_VECTOR
  if(time_counter>=100)
  {
 	 time_counter=0;
-		update_time=1;//100us*10更新频率
+//		update_time=1;//100us*10更新频率
 	 
 //		if(time_counter2>=20)//20*10*100us
 //		{

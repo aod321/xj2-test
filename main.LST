@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 17:40:32 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 20:21:53 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -10,7 +10,7 @@ line level    source
    1          #include "config.h"
    2          #include "pwm.h"
    3          #include "timer.h"
-   4                
+   4          #include "Exti.h"
    5          #define speed 150//正常行驶速度 0-255
    6          #define TLIN P0&0x07//红外信号线（3路）取P0的低3位 P00最右
    7          
@@ -29,201 +29,201 @@ line level    source
   20          sbit led6 = P2^5;
   21          sbit led7 = P2^0;
   22          sbit led8 = P2^3;
-  23          u8 counter=0;//timer0 计数
-  24          
-  25          //压线标志位
-  26          bit L1=0;//最右侧标志位
-  27          bit L2=0;
-  28          bit L3=0;
-  29          bit L4=0;//最左侧标志位
-  30          
-  31          u8 flag=0;
+  23          u8 time_counter=0;//timer0 计数
+  24          u8 line_counter=0;//黑线 计数
+  25          u8 time_counter1=0;//timer1 计数
+  26          void stop();
+  27          //压线标志位
+  28          bit L1=0;//最右侧标志位
+  29          bit L2=0;
+  30          bit L3=0;
+  31          bit L4=0;//最左侧标志位
   32          
-  33          
-  34          extern u8 pwm0,pwm1,pwm2;
+  33          u8 flag=0;
+  34          
   35          
-  36          /***************************向前走*****************************/
-  37          void forward() 
-  38          {
-  39   1          pwm_left(speed);
-  40   1          pwm_right(speed);
-  41   1      }
-  42          /**************************停止*****************************/
-  43          void stop() {pwm_left(0); pwm_right(0);}  
-  44          
-  45          /*左转90度，自动恢复*/
-  46          void turn_left()
-  47          {
-  48   1        //调试参数修改转弯模式
-  49   1          pwm_left(0);
-  50   1          pwm_right(speed);
-  51   1        //调试参数，1-255
-  52   1          delay_ms(2000);
-  53   1          pwm_left(speed);
-  54   1          pwm_right(speed);
-  55   1      }
-C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 17:40:32 PAGE 2   
+  36          extern u8 pwm0,pwm1,pwm2;
+  37          
+  38          /***************************向前走*****************************/
+  39          void forward() 
+  40          {
+  41   1          pwm_left(speed);
+  42   1          pwm_right(speed);
+  43   1      }
+  44          /**************************停止*****************************/
+  45          void stop() {pwm_left(0); pwm_right(0);}  
+  46          
+  47          /*左转90度，自动恢复*/
+  48          void turn_left()
+  49          {
+  50   1        //调试参数修改转弯模式
+  51   1          pwm_left(0);
+  52   1          pwm_right(speed);
+  53   1        //调试参数，1-255
+  54   1          delay_ms(2000);
+  55   1          pwm_left(speed);
+C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 20:21:53 PAGE 2   
 
-  56          
-  57          /*右转90度，自动恢复*/
-  58          void turn_right()
-  59          {
-  60   1        //调试参数修改转弯模式
-  61   1          pwm_left(speed);
-  62   1          pwm_right(0);
-  63   1        //调试参数，0-65536
-  64   1          delay_ms(2000);
-  65   1          pwm_left(speed);
-  66   1          pwm_right(speed);
-  67   1      }
-  68          
-  69          void adjust_left()
-  70          {
-  71   1        u8 temp=TLIN;
-  72   1          pwm_left(0);
-  73   1          pwm_right(speed);
-  74   1        //????????
-  75   1        //??????
-  76   1        //??130 delay_ms(100)
-  77   1        //??170 delay_ms(180) 1?150 too samll
-  78   1        //
-  79   1          delay_ms(220);
-  80   1          //?????
-  81   1          for(;temp!=0xf0;temp=TLIN)//???????
-  82   1          {
-  83   2          }
-  84   1          //??
-  85   1          pwm_left(speed);
-  86   1          pwm_right(0);
-  87   1          //????
-  88   1          delay_ms(200);
+  56   1          pwm_right(speed);
+  57   1      }
+  58          
+  59          /*右转90度，自动恢复*/
+  60          void turn_right()
+  61          {
+  62   1        //调试参数修改转弯模式
+  63   1          pwm_left(speed);
+  64   1          pwm_right(0);
+  65   1        //调试参数，0-65536
+  66   1          delay_ms(2000);
+  67   1          pwm_left(speed);
+  68   1          pwm_right(speed);
+  69   1      }
+  70          
+  71          void adjust_left()
+  72          {
+  73   1        u8 temp=TLIN;
+  74   1          pwm_left(0);
+  75   1          pwm_right(speed);
+  76   1        //????????
+  77   1        //??????
+  78   1        //??130 delay_ms(100)
+  79   1        //??170 delay_ms(180) 1?150 too samll
+  80   1        //
+  81   1          delay_ms(220);
+  82   1          //?????
+  83   1          for(;temp!=0xf0;temp=TLIN)//???????
+  84   1          {
+  85   2          }
+  86   1          //??
+  87   1          pwm_left(speed);
+  88   1          pwm_right(0);
   89   1          //????
-  90   1          pwm_left(speed);
-  91   1          pwm_right(speed);
-  92   1          return;
-  93   1          
-  94   1      }
-  95          void adjust_right()
-  96          {
-  97   1          u8 temp=TLIN;
-  98   1          pwm_left(speed);
-  99   1          pwm_right(0);
- 100   1        //????????
- 101   1        //??????
- 102   1        //??130 delay_ms(100)
- 103   1        //??170 delay_ms(180) 1?150 too samll
- 104   1        //
- 105   1          delay_ms(200);
- 106   1          //?????
- 107   1          for(;temp!=0xf0;temp=TLIN)//???????
- 108   1          {
- 109   2        //    delay_ms(10);
- 110   2          }
- 111   1          //??
- 112   1          pwm_left(0);
- 113   1          pwm_right(speed);
- 114   1          //????
- 115   1          delay_ms(150);
+  90   1          delay_ms(200);
+  91   1          //????
+  92   1          pwm_left(speed);
+  93   1          pwm_right(speed);
+  94   1          return;
+  95   1          
+  96   1      }
+  97          void adjust_right()
+  98          {
+  99   1          u8 temp=TLIN;
+ 100   1          pwm_left(speed);
+ 101   1          pwm_right(0);
+ 102   1        //????????
+ 103   1        //??????
+ 104   1        //??130 delay_ms(100)
+ 105   1        //??170 delay_ms(180) 1?150 too samll
+ 106   1        //
+ 107   1          delay_ms(200);
+ 108   1          //?????
+ 109   1          for(;temp!=0xf0;temp=TLIN)//???????
+ 110   1          {
+ 111   2        //    delay_ms(10);
+ 112   2          }
+ 113   1          //??
+ 114   1          pwm_left(0);
+ 115   1          pwm_right(speed);
  116   1          //????
- 117   1          pwm_left(speed);
-C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 17:40:32 PAGE 3   
+ 117   1          delay_ms(150);
+C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 20:21:53 PAGE 3   
 
- 118   1          pwm_right(speed);
- 119   1          return;
- 120   1      
- 121   1      }
- 122          
- 123          /************************
- 124          //左转可调，自动恢复
- 125          //t1:保持左转状态时间 1-255
- 126          //t2:回调时间 1-255
- 127          *************************/
- 128          void turn_leftn(u16 t1,u16 t2)
- 129          {
- 130   1        //调试参数修改转弯模式
- 131   1          pwm_left(0);
- 132   1          pwm_right(speed);
- 133   1        //:保持左转状态时间
- 134   1          delay_ms(t1);
- 135   1          //回调
- 136   1          //回调时pwm比需要计算、调试
- 137   1          pwm_left(speed);
- 138   1          pwm_right(0);
- 139   1            //回调时间
- 140   1          delay_ms(t2);
- 141   1          //恢复前行
- 142   1          pwm_left(speed);
- 143   1          pwm_right(speed);
- 144   1      }
- 145          
- 146          /************************
- 147          //右转可调，支持转弯后回调
- 148          //t1:保持右转状态时间 1-255
- 149          //t2:回调时间 1-255
- 150          *************************/
- 151          void turn_rightn(u16 t1,u16 t2)
- 152          {
- 153   1        
- 154   1        //调试参数修改转弯模式
- 155   1          pwm_left(speed);
- 156   1          pwm_right(0);
- 157   1        //保持右转状态时间
- 158   1          delay_ms(t1);
- 159   1          
- 160   1          //回调
- 161   1          //回调时pwm比需要计算、调试
- 162   1          pwm_left(0);
- 163   1          pwm_right(speed);
- 164   1            //回调时间
- 165   1          delay_ms(t2);
- 166   1          
- 167   1          //恢复前行
- 168   1          pwm_left(speed);
- 169   1          pwm_right(speed);
- 170   1      
- 171   1      }
- 172          
- 173          /*****************************检测前面是否有小车*******************************/
+ 118   1          //????
+ 119   1          pwm_left(speed);
+ 120   1          pwm_right(speed);
+ 121   1          return;
+ 122   1      
+ 123   1      }
+ 124          
+ 125          /************************
+ 126          //左转可调，自动恢复
+ 127          //t1:保持左转状态时间 1-255
+ 128          //t2:回调时间 1-255
+ 129          *************************/
+ 130          void turn_leftn(u16 t1,u16 t2)
+ 131          {
+ 132   1        //调试参数修改转弯模式
+ 133   1          pwm_left(0);
+ 134   1          pwm_right(speed);
+ 135   1        //:保持左转状态时间
+ 136   1          delay_ms(t1);
+ 137   1          //回调
+ 138   1          //回调时pwm比需要计算、调试
+ 139   1          pwm_left(speed);
+ 140   1          pwm_right(0);
+ 141   1            //回调时间
+ 142   1          delay_ms(t2);
+ 143   1          //恢复前行
+ 144   1          pwm_left(speed);
+ 145   1          pwm_right(speed);
+ 146   1      }
+ 147          
+ 148          /************************
+ 149          //右转可调，支持转弯后回调
+ 150          //t1:保持右转状态时间 1-255
+ 151          //t2:回调时间 1-255
+ 152          *************************/
+ 153          void turn_rightn(u16 t1,u16 t2)
+ 154          {
+ 155   1        
+ 156   1        //调试参数修改转弯模式
+ 157   1          pwm_left(speed);
+ 158   1          pwm_right(0);
+ 159   1        //保持右转状态时间
+ 160   1          delay_ms(t1);
+ 161   1          
+ 162   1          //回调
+ 163   1          //回调时pwm比需要计算、调试
+ 164   1          pwm_left(0);
+ 165   1          pwm_right(speed);
+ 166   1            //回调时间
+ 167   1          delay_ms(t2);
+ 168   1          
+ 169   1          //恢复前行
+ 170   1          pwm_left(speed);
+ 171   1          pwm_right(speed);
+ 172   1      
+ 173   1      }
  174          
- 175          void check()
- 176          {
- 177   1        if(k==1)
- 178   1          g=1;
- 179   1        else 
-C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 17:40:32 PAGE 4   
+ 175          /*****************************检测前面是否有小车*******************************/
+ 176          
+ 177          void check()
+ 178          {
+ 179   1        if(k==1)
+C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 20:21:53 PAGE 4   
 
- 180   1          g=0;
- 181   1      }
- 182          
- 183          
- 184          void Inline()   //检测黑线信号，检测到黑线时变为高电平，平时低电平
- 185          {
- 186   1        switch(TLIN)
- 187   1        {
- 188   2          //没检测到黑线时，直行
- 189   2          case 0x00:    forward();    break;
- 190   2          
- 191   2          //仅右边检测到黑线时，左电机快转，右电机慢转
- 192   2          case 0x01:  stop();         break;
- 193   2          
- 194   2          //仅中间检测到黑线时，正常，左右电机都快转
- 195   2          case 0x02:                  break;
- 196   2          
- 197   2          //中间以及右边检测到黑线时，左电机快转，右电机慢转
- 198   2          case 0x03:                  break;
- 199   2          
- 200   2          //仅左边检测到黑线时，左电机慢转，右电机快转
- 201   2          case 0x04:      stop();             break;
- 202   2          
- 203   2          case 0x05:  break;  //不可能出现此情况
- 204   2          
- 205   2          //中间以及左边检测到黑线时，左电机慢转，右电机快转
- 206   2          case 0x06:  break;  
- 207   2          
- 208   2          //全都检测到黑线时
- 209   2          case 0x07:      
- 210   2            forward();
- 211   2        break;
+ 180   1          g=1;
+ 181   1        else 
+ 182   1          g=0;
+ 183   1      }
+ 184          
+ 185          
+ 186          void Inline()   //检测黑线信号，检测到黑线时变为高电平，平时低电平
+ 187          {
+ 188   1        switch(TLIN)
+ 189   1        {
+ 190   2          //没检测到黑线时，直行
+ 191   2          case 0x00:    forward();                  break;
+ 192   2          
+ 193   2          //仅右边检测到黑线时,左转
+ 194   2          case 0x01:  adjust_left();                break;
+ 195   2          
+ 196   2          //仅中间检测到黑线时，正常直行
+ 197   2          case 0x02:    line_counter++;                             break;
+ 198   2              
+ 199   2          //中间以及右边检测到黑线时
+ 200   2          case 0x03:                                break;
+ 201   2          
+ 202   2          //仅左边检测到黑线时,右转
+ 203   2          case 0x04:  adjust_right();               break;
+ 204   2          //仅中间未检测到黑线,忽略
+ 205   2          case 0x05:                                break;  
+ 206   2          
+ 207   2          //中间以及左边检测到黑线时
+ 208   2          case 0x06:                               break; 
+ 209   2          
+ 210   2          //全都检测到黑线时
+ 211   2          case 0x07:      forward();               break;
  212   2          default: break;
  213   2          
  214   2        }
@@ -235,29 +235,31 @@ line level    source
  220          { 
  221   1        PCA_Init();//pwm初始化
  222   1        Timer_config();
- 223   1        check();//初始化检测前方小车
- 224   1        forward(); //直行
- 225   1        
- 226   1        //调试用 1-255
- 227   1        delay_ms(200);
- 228   1        while(1)
- 229   1        { 
- 230   2          Inline();
- 231   2        //  pwm_left(speed);
- 232   2        //  pwm_right(0);
- 233   2      
- 234   2         }
- 235   1       }
- 236          
+ 223   1        EXTI_config();
+*** WARNING C206 IN LINE 223 OF main.c: 'EXTI_config': missing function-prototype
+ 224   1        EA=1;
+ 225   1        check();//初始化检测前方小车
+ 226   1        forward(); //直行
+ 227   1        //调试用 1-255
+ 228   1        delay_ms(200);
+ 229   1        while(1);
+ 230   1      //  { 
+ 231   1      //    Inline();
+ 232   1      //  //  pwm_left(speed);
+ 233   1      //  //  pwm_right(0);
+ 234   1      
+ 235   1      //   }
+ 236   1       }
  237          
+ 238          
 
+
+C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 20:21:53 PAGE 5   
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    390    ----
-C51 COMPILER V9.52.0.0   MAIN                                                              04/07/2016 17:40:32 PAGE 5   
-
+   CODE SIZE        =    403    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =      3      10
+   XDATA SIZE       =      5      10
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
@@ -265,4 +267,4 @@ MODULE INFORMATION:   STATIC OVERLAYABLE
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

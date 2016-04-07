@@ -27,6 +27,11 @@
 void Ext_INT0 (void) interrupt INT0_VECTOR		//进中断时已经清除标志
 {
 //	P00 = ~P00;
+line_counter++;	
+	
+	
+	
+	
 }
 
 /********************* INT1中断函数 *************************/
@@ -108,7 +113,6 @@ u8	Ext_Inilize(u8 EXT, EXTI_InitTypeDef *INTx)
 	}
 	return 2;	//失败
 }
-
 void	EXTI_config(void)
 {
 	EXTI_InitTypeDef	EXTI_InitStructure;					//结构定义

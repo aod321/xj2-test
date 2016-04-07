@@ -366,6 +366,11 @@
               <FileType>1</FileType>
               <FilePath>.\timer.c</FilePath>
             </File>
+            <File>
+              <FileName>Exti.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Exti.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

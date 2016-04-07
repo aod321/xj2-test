@@ -3,7 +3,7 @@
 #include "timer.h"
 #include "Exti.h"
 #define speed 150//正常行驶速度 0-255
-#define TLIN P0&0x07//红外信号线（3路）取P0的低3位 P00最右
+#define TLIN P0&0x03//红外信号线（3路）取P0的低3位 P00最右
 
 sbit k =P1^6;//定义红外开关输入端口
 unsigned char g;//常数g
@@ -23,7 +23,7 @@ sbit led8 = P2^3;
 u8 time_counter=0;//timer0 计数
 u8 line_counter=0;//黑线 计数
 u8 time_counter1=0;//timer1 计数
-
+void stop();
 //压线标志位
 bit L1=0;//最右侧标志位
 bit L2=0;
@@ -190,25 +190,16 @@ void Inline()		//检测黑线信号，检测到黑线时变为高电平，平时低电平
 		//没检测到黑线时，直行
 		case 0x00:    forward(); 									break;
 		
-		//仅右边检测到黑线时,左转
+		//右边检测到黑线时,左转
 		case 0x01:  adjust_left(); 								break;
 		
-		//仅中间检测到黑线时，正常直行
-		case 0x02: 		line_counter++; 														break;
+		//左边检测到黑线时，右转
+		case 0x02: 		adjust_right(); 						break;
 				
-		//中间以及右边检测到黑线时
+		//不可能
 		case 0x03: 								  							break;
 		
-		//仅左边检测到黑线时,右转
-		case 0x04:	adjust_right();							  break;
-		//仅中间未检测到黑线,忽略
-		case 0x05:  															break;  
-		
-		//中间以及左边检测到黑线时
-		case 0x06: 															 break;	
-		
-		//全都检测到黑线时
-		case 0x07:  		forward();							 break;
+//
 		default: break;
 		
 	}

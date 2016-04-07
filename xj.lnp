@@ -1,5 +1,6 @@
 "main.obj",
 "pwm.obj",
-"timer.obj" 
+"timer.obj",
+"Exti.obj" 
 TO "xj" 
 RAMSIZE(256) 
