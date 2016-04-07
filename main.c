@@ -1,7 +1,9 @@
-#include "config.h"
 #include "pwm.h"
 #include "timer.h"
 #include "Exti.h"
+#include "Lcd.h"
+#include "config.h"
+
 #define speed 150//正常行驶速度 0-255
 #define TLIN P0&0x03//红外信号线（3路）取P0的低3位 P00最右
 
@@ -216,7 +218,7 @@ void Line_Count()						//检测黑线条数
 				if(line_counter <=1)				//如果该时间内没有第二根线
 				{
 					line_counter=0;						//黑线数量清空		
-					TR1=0;										//关闭计时器
+					TR0=0;										//关闭计时器
 				}
 		}
 
@@ -226,12 +228,22 @@ void Line_Count()						//检测黑线条数
 /*************************主函数***********************************/
 main()
 { 
+	char dis_code[10]={"---cm"};
+	Initialize_LCD();// init LCD1602
 	PCA_Init();//pwm初始化
 	Timer_config();
 	EXTI_config();
 	EA=1;
+
 	check();//初始化检测前方小车
 	forward(); //直行
+
+	ClearLine(1);									//LCD删行
+	ClearLine(2);
+		PutString(1,1,"Line_counter:");				//LCD显示		
+		WriteChar(1,7,line_counter);
+		PutString(2,1,dis_code);
+		PutString(2,7,"mode:");
 	//调试用 1-255
 	delay_ms(200);
 	while(1)

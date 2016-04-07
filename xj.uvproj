@@ -371,6 +371,11 @@
               <FileType>1</FileType>
               <FilePath>.\Exti.c</FilePath>
             </File>
+            <File>
+              <FileName>Lcd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Lcd.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

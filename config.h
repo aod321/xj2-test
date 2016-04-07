@@ -1,8 +1,6 @@
 
 #ifndef		__CONFIG_H
 #define		__CONFIG_H
-void stop();
-void Line_Count();
 
 /*********************************************************/
 
@@ -13,8 +11,12 @@ void Line_Count();
 //#define MAIN_Fosc		24000000L	//定义主时钟
 
 /*********************************************************/
-
 #include	"STC15F2K60S2.H"
+#include 		"pwm.h"
+#include  "Lcd.h"
+void stop();
+void Line_Count();
+
 #ifndef u8
 #define u8 unsigned char
 #endif

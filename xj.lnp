@@ -1,6 +1,7 @@
 "main.obj",
 "pwm.obj",
 "timer.obj",
-"Exti.obj" 
+"Exti.obj",
+"Lcd.obj" 
 TO "xj" 
 RAMSIZE(256) 

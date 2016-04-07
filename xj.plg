@@ -4,423 +4,46 @@
 <h1>µVision Build Log</h1>
 <h2>Project:</h2>
 C:\Users\yin\Desktop\xj2-test\xj.uvproj
-Project File Date:  04/07/2016
+Project File Date:  04/08/2016
 
 <h2>Output:</h2>
 Rebuild target 'Target 1'
 compiling main.c...
-main.c(210): error C202: 'update_flag': undefined identifier
 compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
+pwm.c(47): warning C235: parameter 1: different types
 compiling timer.c...
 compiling Exti.c...
-Exti.c(30): error C202: 'line_counter': undefined identifier
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(210): error C202: 'update_flag': undefined identifier
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(210): error C202: 'update_flag': undefined identifier
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(230): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?STOP?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?TURN_RIGHT?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_TURN_LEFTN?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_TURN_RIGHTN?MAIN
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  main.obj (MAIN)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  main.obj (MAIN)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 003AH
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 0041H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 004BH
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM2
-    MODULE:  pwm.obj (PWM)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0470H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0474H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM2
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0478H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 047CH
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0488H
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER
-    MODULE:  timer.obj (TIMER)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  timer.obj (TIMER)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05D3H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05F2H
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  Exti.obj (EXTI)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  Exti.obj (EXTI)
-    ADDRESS: 0673H
-Program Size: data=9.4 xdata=18 code=1717
-creating hex file from "xj"...
-"xj" - 0 Error(s), 26 Warning(s).
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(180): error C202: 'k': undefined identifier
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(229): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-linking...
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?STOP?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?TURN_RIGHT?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_TURN_LEFTN?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_TURN_RIGHTN?MAIN
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  main.obj (MAIN)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  main.obj (MAIN)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 003AH
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 0041H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 004BH
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM2
-    MODULE:  pwm.obj (PWM)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0470H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0474H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM2
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0478H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 047CH
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0488H
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER
-    MODULE:  timer.obj (TIMER)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  timer.obj (TIMER)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05D3H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05F2H
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  Exti.obj (EXTI)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  Exti.obj (EXTI)
-    ADDRESS: 0673H
-Program Size: data=9.4 xdata=18 code=1717
-creating hex file from "xj"...
-"xj" - 0 Error(s), 26 Warning(s).
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(230): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-timer.c(55): error C202: 'update_flag': undefined identifier
-compiling Exti.c...
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(206): warning C206: 'Line_Count': missing function-prototype
-main.c(210): error C231: 'Line_Count': redefinition
-main.c(223): error C231: 'Line_Count': redefinition
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-timer.c(55): error C202: 'update_flag': undefined identifier
-compiling Exti.c...
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(206): warning C206: 'Line_Count': missing function-prototype
-main.c(210): error C231: 'Line_Count': redefinition
-main.c(223): error C231: 'Line_Count': redefinition
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(230): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-compiling Exti.c...
-linking...
-*** ERROR L102: EXTERNAL ATTRIBUTE MISMATCH
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  timer.obj (TIMER)
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?STOP?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?TURN_LEFT?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?TURN_RIGHT?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_TURN_LEFTN?MAIN
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_TURN_RIGHTN?MAIN
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  main.obj (MAIN)
-*** ERROR L118: REFERENCE MADE TO ERRONEOUS EXTERNAL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 0606H
-*** ERROR L118: REFERENCE MADE TO ERRONEOUS EXTERNAL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 0687H
-*** ERROR L118: REFERENCE MADE TO ERRONEOUS EXTERNAL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 068AH
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  main.obj (MAIN)
-    ADDRESS: 068CH
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  PWM2
-    MODULE:  pwm.obj (PWM)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0470H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0474H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM2
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0478H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM0
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 047CH
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  PWM1
-    MODULE:  pwm.obj (PWM)
-    ADDRESS: 0488H
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER
-    MODULE:  timer.obj (TIMER)
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  timer.obj (TIMER)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05C5H
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  TIME_COUNTER1
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05A1H
-*** ERROR L118: REFERENCE MADE TO ERRONEOUS EXTERNAL
-    SYMBOL:  UPDATE_FLAG
-    MODULE:  timer.obj (TIMER)
-    ADDRESS: 05AFH
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  Exti.obj (EXTI)
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  LINE_COUNTER
-    MODULE:  Exti.obj (EXTI)
-    ADDRESS: 0664H
-Program Size: data=9.4 xdata=18 code=1718
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-config.h(6): error C129: missing ';' before 'time_counter'
-compiling pwm.c...
-config.h(6): error C129: missing ';' before 'time_counter'
-compiling timer.c...
-config.h(6): error C129: missing ';' before 'time_counter'
-compiling Exti.c...
-config.h(6): error C129: missing ';' before 'time_counter'
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(230): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-timer.c(19): error C202: 'time_counter': undefined identifier
-timer.c(31): error C202: 'time_counter': undefined identifier
-timer.c(33): error C202: 'time_counter': undefined identifier
-timer.c(50): error C202: 'time_counter1': undefined identifier
-timer.c(51): error C202: 'time_counter1': undefined identifier
-timer.c(53): error C202: 'time_counter1': undefined identifier
-timer.c(54): error C202: 'update_flag': undefined identifier
-compiling Exti.c...
-Exti.h(13): error C129: missing ';' before 'time_counter'
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(230): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-timer.c(19): error C202: 'time_counter': undefined identifier
-timer.c(31): error C202: 'time_counter': undefined identifier
-timer.c(33): error C202: 'time_counter': undefined identifier
-timer.c(50): error C202: 'time_counter1': undefined identifier
-timer.c(51): error C202: 'time_counter1': undefined identifier
-timer.c(53): error C202: 'time_counter1': undefined identifier
-timer.c(54): error C202: 'update_flag': undefined identifier
-compiling Exti.c...
-Exti.c(21): error C129: missing ';' before 'time_counter'
-Target not created
-Rebuild target 'Target 1'
-compiling main.c...
-main.c(230): warning C206: 'EXTI_config': missing function-prototype
-compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
-compiling timer.c...
-timer.c(9): error C129: missing ';' before 'time_counter'
-compiling Exti.c...
-Exti.c(21): error C129: missing ';' before 'time_counter'
+compiling Lcd.c...
+Lcd.c(152): warning C206: 'delay_ms': missing function-prototype
+Lcd.c(152): error C267: 'delay_ms': requires ANSI-style prototype
 Target not created
 Rebuild target 'Target 1'
 compiling main.c...
 compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
+pwm.c(47): warning C235: parameter 1: different types
 compiling timer.c...
-timer.c(9): error C129: missing ';' before 'time_counter'
 compiling Exti.c...
-Exti.c(21): error C129: missing ';' before 'time_counter'
+compiling Lcd.c...
+Lcd.c(152): warning C206: 'delay_ms': missing function-prototype
+Lcd.c(152): error C267: 'delay_ms': requires ANSI-style prototype
 Target not created
 Rebuild target 'Target 1'
 compiling main.c...
 compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
+pwm.c(47): warning C235: parameter 1: different types
 compiling timer.c...
 compiling Exti.c...
-Exti.c(21): error C129: missing ';' before 'time_counter'
+compiling Lcd.c...
+Lcd.c(152): warning C206: 'delay_ms': missing function-prototype
+Lcd.c(152): error C267: 'delay_ms': requires ANSI-style prototype
 Target not created
 Rebuild target 'Target 1'
 compiling main.c...
 compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
+pwm.c(47): warning C235: parameter 1: different types
 compiling timer.c...
 compiling Exti.c...
+compiling Lcd.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?STOP?MAIN
@@ -444,32 +67,33 @@ linking...
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM0
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0470H
+    ADDRESS: 06A0H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM1
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0474H
+    ADDRESS: 06A4H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM2
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0478H
+    ADDRESS: 06A8H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM0
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 047CH
+    ADDRESS: 06ACH
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM1
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0488H
-Program Size: data=9.5 xdata=21 code=1715
+    ADDRESS: 06B8H
+Program Size: data=9.5 xdata=31 code=2553
 creating hex file from "xj"...
 "xj" - 0 Error(s), 14 Warning(s).
 Rebuild target 'Target 1'
 compiling main.c...
 compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
+pwm.c(47): warning C235: parameter 1: different types
 compiling timer.c...
 compiling Exti.c...
+compiling Lcd.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?STOP?MAIN
@@ -493,32 +117,42 @@ linking...
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM0
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0470H
+    ADDRESS: 06A0H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM1
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0474H
+    ADDRESS: 06A4H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM2
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0478H
+    ADDRESS: 06A8H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM0
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 047CH
+    ADDRESS: 06ACH
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM1
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0488H
-Program Size: data=9.5 xdata=21 code=1715
+    ADDRESS: 06B8H
+Program Size: data=9.5 xdata=31 code=2553
 creating hex file from "xj"...
 "xj" - 0 Error(s), 14 Warning(s).
 Rebuild target 'Target 1'
 compiling main.c...
 compiling pwm.c...
-pwm.c(46): warning C235: parameter 1: different types
+pwm.c(47): warning C235: parameter 1: different types
+compiling timer.c...
+timer.c(51): error C141: syntax error near 'void'
+compiling Exti.c...
+compiling Lcd.c...
+Target not created
+Rebuild target 'Target 1'
+compiling main.c...
+compiling pwm.c...
+pwm.c(47): warning C235: parameter 1: different types
 compiling timer.c...
 compiling Exti.c...
+compiling Lcd.c...
 linking...
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?STOP?MAIN
@@ -542,23 +176,23 @@ linking...
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM0
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0470H
+    ADDRESS: 06A0H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM1
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0474H
+    ADDRESS: 06A4H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM2
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0478H
+    ADDRESS: 06A8H
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM0
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 047CH
+    ADDRESS: 06ACH
 *** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
     SYMBOL:  PWM1
     MODULE:  pwm.obj (PWM)
-    ADDRESS: 0488H
-Program Size: data=9.5 xdata=21 code=1715
+    ADDRESS: 06B8H
+Program Size: data=9.5 xdata=31 code=2531
 creating hex file from "xj"...
 "xj" - 0 Error(s), 14 Warning(s).

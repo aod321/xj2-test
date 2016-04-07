@@ -12,7 +12,6 @@
 #include	"timer.h"
 extern u8 time_counter;//timer0 计数
 extern u8 line_counter;//黑线 计数
-extern u8 time_counter1;//timer1 计数
 extern bit update_flag;//timer1 计时标记
 
 /********************* Timer0中断函数************************/
@@ -33,10 +32,12 @@ void timer0_int (void) interrupt TIMER0_VECTOR
 
  if(time_counter>=100)
  {
+	  // P26 = ~P26;
+	time_counter++;
+	if(time_counter>=100)	//100us*10
+ {
 	 time_counter=0;
-	 
-//		update_time=1;//100us*10更新频率
-	 
+	 update_flag=1;
 //		if(time_counter2>=20)//20*10*100us
 //		{
 //			time_counter2=0;
@@ -45,22 +46,11 @@ void timer0_int (void) interrupt TIMER0_VECTOR
  }
 
 }
-
+}
 /********************* Timer1中断函数************************/
 void timer1_int (void) interrupt TIMER1_VECTOR
 {
-  // P26 = ~P26;
-	time_counter1++;
-	if(time_counter1>=100)	//100us*10
- {
-	 time_counter1=0;
-	 update_flag=1;
-//		if(time_counter2>=20)//20*10*100us
-//		{
-//			time_counter2=0;
-//			update_dis=1;
-//		}
- }
+ 
 
 }
 

@@ -32,6 +32,5 @@ typedef struct
 
 u8	Timer_Inilize(u8 TIM, TIM_InitTypeDef *TIMx);
 void	Timer_config(void);
-extern u8 counter;//timer0 ¼ÆÊý
 
 #endif
