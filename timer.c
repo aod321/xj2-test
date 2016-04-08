@@ -17,36 +17,14 @@ extern bit update_flag;//timer1 计时标记
 /********************* Timer0中断函数************************/
 void timer0_int (void) interrupt TIMER0_VECTOR
 {
- //
- time_counter++;//100us
- 
- /*
- //   test the timer
- if(time_counter>100)
- {
-	 time_counter=0;
-	 test_num++;
- }
- */
- 
-
- if(time_counter>=100)
- {
-	  // P26 = ~P26;
 	time_counter++;
-	if(time_counter>=100)	//100us*10
+	if(time_counter>=80)	//80 * 1/40 s=2s
  {
 	 time_counter=0;
 	 update_flag=1;
-//		if(time_counter2>=20)//20*10*100us
-//		{
-//			time_counter2=0;
-//			update_dis=1;
-//		}
  }
+}
 
-}
-}
 /********************* Timer1中断函数************************/
 void timer1_int (void) interrupt TIMER1_VECTOR
 {
@@ -69,9 +47,12 @@ void	Timer_config(void)
 	TIM_InitStructure.TIM_Interrupt = ENABLE;				//中断是否允许,   ENABLE或DISABLE
 	TIM_InitStructure.TIM_ClkSource = TIM_CLOCK_1T;			//指定时钟源,     TIM_CLOCK_1T,TIM_CLOCK_12T,TIM_CLOCK_Ext
 	TIM_InitStructure.TIM_ClkOut    = DISABLE;				//是否输出高速脉冲, ENABLE或DISABLE
-	TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / 100000UL);		//初值,1/100000s  10us
+	TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / 40UL);		//初值,1/100000s  1/40s
+	//100000UL  min:MAIN_Fosc/65536   max:MAIN_Dosc
+	//22118400LHZ主频情况下 min：33 max:221184000
 	TIM_InitStructure.TIM_Run       = ENABLE;				//是否初始化后启动定时器, ENABLE或DISABLE
 	Timer_Inilize(Timer0,&TIM_InitStructure);				//初始化Timer0	  Timer0,Timer1,Timer2
+
 
 	TIM_InitStructure.TIM_Mode      = TIM_16BitAutoReload;	//指定工作模式,   TIM_16BitAutoReload,TIM_16Bit,TIM_8BitAutoReload,TIM_16BitAutoReloadNoMask
 	TIM_InitStructure.TIM_Polity    = PolityLow;			//指定中断优先级, PolityHigh,PolityLow
