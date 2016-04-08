@@ -1,9 +1,9 @@
-C51 COMPILER V9.52.0.0   EXTI                                                              04/08/2016 21:50:07 PAGE 1   
+C51 COMPILER V9.52.0.0   EXTI                                                              04/08/2016 17:41:50 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE EXTI
 OBJECT MODULE PLACED IN Exti.OBJ
-COMPILER INVOKED BY: D:\Program Files\Keil\C51\BIN\C51.EXE Exti.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
+COMPILER INVOKED BY: F:\Keil\C51\BIN\C51.EXE Exti.c LARGE BROWSE DEBUG OBJECTEXTEND TABS(2)
 
 line level    source
 
@@ -34,128 +34,121 @@ line level    source
   25          extern u8 line_counter;//黑线 计数
   26          extern u8 time_counter1;//timer1 计数
   27          extern bit update_flag;//timer1 计时标记
-  28          extern bit tl_flag;
-  29          
-  30          /********************* INT0中断函数 *************************/
-  31          void Ext_INT0 (void) interrupt INT0_VECTOR    //进中断时已经清除标志
-  32          {
-  33   1      //  P00 = ~P00;
-  34   1        u16 temp=65536UL - (MAIN_Fosc / 40UL);
-  35   1        line_counter++;                         //黑线计数加1
-  36   1        if(line_counter==1)//第一次压线
-  37   1        tl_flag=1;//左转标志位置1
-  38   1        
-  39   1        TR0=0;
-  40   1        TH0 = (u8)(temp>> 8);
-  41   1        TL0 = (u8)temp;
-  42   1        TR0=1;                                  //打开定时器0
-  43   1      }
-  44          
-  45          /********************* INT1中断函数 *************************/
-  46          void Ext_INT1 (void) interrupt INT1_VECTOR    //进中断时已经清除标志
-  47          {
-  48   1      //  P01 = ~P01;
-  49   1      }
-  50          
-  51          /********************* INT2中断函数 *************************/
-  52          void Ext_INT2 (void) interrupt INT2_VECTOR  //
-  53          {
-  54   1      //  P02 = ~P02;
-  55   1      }
-C51 COMPILER V9.52.0.0   EXTI                                                              04/08/2016 21:50:07 PAGE 2   
+  28          
+  29          /********************* INT0中断函数 *************************/
+  30          void Ext_INT0 (void) interrupt INT0_VECTOR    //进中断时已经清除标志
+  31          {
+  32   1      //  P00 = ~P00;
+  33   1        
+  34   1        line_counter++;                         //黑线计数加1
+  35   1        TR0=1;                                  //打开定时器0
+  36   1      }
+  37          
+  38          /********************* INT1中断函数 *************************/
+  39          void Ext_INT1 (void) interrupt INT1_VECTOR    //进中断时已经清除标志
+  40          {
+  41   1      //  P01 = ~P01;
+  42   1      }
+  43          
+  44          /********************* INT2中断函数 *************************/
+  45          void Ext_INT2 (void) interrupt INT2_VECTOR  //
+  46          {
+  47   1      //  P02 = ~P02;
+  48   1      }
+  49          
+  50          /********************* INT3中断函数 *************************/
+  51          void Ext_INT3 (void) interrupt INT3_VECTOR
+  52          {
+  53   1      //  P03 = ~P03;
+  54   1      }
+  55          
+C51 COMPILER V9.52.0.0   EXTI                                                              04/08/2016 17:41:50 PAGE 2   
 
-  56          
-  57          /********************* INT3中断函数 *************************/
-  58          void Ext_INT3 (void) interrupt INT3_VECTOR
-  59          {
-  60   1      //  P03 = ~P03;
-  61   1      }
-  62          
-  63          /********************* INT4中断函数 *************************/
-  64          void Ext_INT4 (void) interrupt INT4_VECTOR
-  65          {
-  66   1      //  P04 = ~P04;
-  67   1      }
-  68          
-  69          //========================================================================
-  70          // 函数: u8 Ext_Inilize(u8 EXT, EXTI_InitTypeDef *INTx)
-  71          // 描述: 外部中断初始化程序.
-  72          // 参数: INTx: 结构参数,请参考Exti.h里的定义.
-  73          // 返回: 成功返回0, 空操作返回1,错误返回2.
-  74          // 版本: V1.0, 2012-10-22
-  75          //========================================================================
-  76          u8  Ext_Inilize(u8 EXT, EXTI_InitTypeDef *INTx)
-  77          {
-  78   1        if(EXT >  EXT_INT4) return 1; //空操作
-  79   1        
-  80   1        if(EXT == EXT_INT0) //外中断0
-  81   1        {
-  82   2          if(INTx->EXTI_Interrupt == ENABLE)    EX0 = 1;  //允许中断
-  83   2          else                  EX0 = 0;  //禁止中断
-  84   2          if(INTx->EXTI_Polity == PolityHigh)   PX0 = 1;  //高优先级中断
-  85   2          else                  PX0 = 0;  //低优先级中断
-  86   2          if(INTx->EXTI_Mode == EXT_MODE_Fall)  IT0 = 1;  //下降沿中断
-  87   2          else                  IT0 = 0;  //上升,下降沿中断
-  88   2          return  0;    //成功
-  89   2        }
-  90   1      
-  91   1        if(EXT == EXT_INT1) //外中断1
-  92   1        {
-  93   2          if(INTx->EXTI_Interrupt == ENABLE)    EX1 = 1;  //允许中断
-  94   2          else                  EX1 = 0;  //禁止中断
-  95   2          if(INTx->EXTI_Polity == PolityHigh)   PX1 = 1;  //高优先级中断
-  96   2          else                  PX1 = 0;  //低优先级中断
-  97   2          if(INTx->EXTI_Mode == EXT_MODE_Fall)  IT1 = 1;  //下降沿中断
-  98   2          else                  IT1 = 0;  //上升,下降沿中断
+  56          /********************* INT4中断函数 *************************/
+  57          void Ext_INT4 (void) interrupt INT4_VECTOR
+  58          {
+  59   1      //  P04 = ~P04;
+  60   1      }
+  61          
+  62          //========================================================================
+  63          // 函数: u8 Ext_Inilize(u8 EXT, EXTI_InitTypeDef *INTx)
+  64          // 描述: 外部中断初始化程序.
+  65          // 参数: INTx: 结构参数,请参考Exti.h里的定义.
+  66          // 返回: 成功返回0, 空操作返回1,错误返回2.
+  67          // 版本: V1.0, 2012-10-22
+  68          //========================================================================
+  69          u8  Ext_Inilize(u8 EXT, EXTI_InitTypeDef *INTx)
+  70          {
+  71   1        if(EXT >  EXT_INT4) return 1; //空操作
+  72   1        
+  73   1        if(EXT == EXT_INT0) //外中断0
+  74   1        {
+  75   2          if(INTx->EXTI_Interrupt == ENABLE)    EX0 = 1;  //允许中断
+  76   2          else                  EX0 = 0;  //禁止中断
+  77   2          if(INTx->EXTI_Polity == PolityHigh)   PX0 = 1;  //高优先级中断
+  78   2          else                  PX0 = 0;  //低优先级中断
+  79   2          if(INTx->EXTI_Mode == EXT_MODE_Fall)  IT0 = 1;  //下降沿中断
+  80   2          else                  IT0 = 0;  //上升,下降沿中断
+  81   2          return  0;    //成功
+  82   2        }
+  83   1      
+  84   1        if(EXT == EXT_INT1) //外中断1
+  85   1        {
+  86   2          if(INTx->EXTI_Interrupt == ENABLE)    EX1 = 1;  //允许中断
+  87   2          else                  EX1 = 0;  //禁止中断
+  88   2          if(INTx->EXTI_Polity == PolityHigh)   PX1 = 1;  //高优先级中断
+  89   2          else                  PX1 = 0;  //低优先级中断
+  90   2          if(INTx->EXTI_Mode == EXT_MODE_Fall)  IT1 = 1;  //下降沿中断
+  91   2          else                  IT1 = 0;  //上升,下降沿中断
+  92   2          return  0;    //成功
+  93   2        }
+  94   1      
+  95   1        if(EXT == EXT_INT2)   //外中断2, 固定为下降沿低优先级中断
+  96   1        {
+  97   2          if(INTx->EXTI_Interrupt == ENABLE)  INT_CLKO |=  (1 << 4);  //允许中断  
+  98   2          else                INT_CLKO &= ~(1 << 4);  //禁止中断
   99   2          return  0;    //成功
  100   2        }
  101   1      
- 102   1        if(EXT == EXT_INT2)   //外中断2, 固定为下降沿低优先级中断
+ 102   1        if(EXT == EXT_INT3)   //外中断3, 固定为下降沿低优先级中断
  103   1        {
- 104   2          if(INTx->EXTI_Interrupt == ENABLE)  INT_CLKO |=  (1 << 4);  //允许中断  
- 105   2          else                INT_CLKO &= ~(1 << 4);  //禁止中断
+ 104   2          if(INTx->EXTI_Interrupt == ENABLE)  INT_CLKO |=  (1 << 5);  //允许中断  
+ 105   2          else                INT_CLKO &= ~(1 << 5);  //禁止中断
  106   2          return  0;    //成功
  107   2        }
  108   1      
- 109   1        if(EXT == EXT_INT3)   //外中断3, 固定为下降沿低优先级中断
+ 109   1        if(EXT == EXT_INT4)   //外中断4, 固定为下降沿低优先级中断
  110   1        {
- 111   2          if(INTx->EXTI_Interrupt == ENABLE)  INT_CLKO |=  (1 << 5);  //允许中断  
- 112   2          else                INT_CLKO &= ~(1 << 5);  //禁止中断
+ 111   2          if(INTx->EXTI_Interrupt == ENABLE)  INT_CLKO |=  (1 << 6);  //允许中断  
+ 112   2          else                INT_CLKO &= ~(1 << 6);  //禁止中断
  113   2          return  0;    //成功
  114   2        }
- 115   1      
- 116   1        if(EXT == EXT_INT4)   //外中断4, 固定为下降沿低优先级中断
- 117   1        {
-C51 COMPILER V9.52.0.0   EXTI                                                              04/08/2016 21:50:07 PAGE 3   
+ 115   1        return 2; //失败
+ 116   1      }
+ 117          void  EXTI_config(void)
+C51 COMPILER V9.52.0.0   EXTI                                                              04/08/2016 17:41:50 PAGE 3   
 
- 118   2          if(INTx->EXTI_Interrupt == ENABLE)  INT_CLKO |=  (1 << 6);  //允许中断  
- 119   2          else                INT_CLKO &= ~(1 << 6);  //禁止中断
- 120   2          return  0;    //成功
- 121   2        }
- 122   1        return 2; //失败
- 123   1      }
- 124          void  EXTI_config(void)
- 125          {
- 126   1        EXTI_InitTypeDef  EXTI_InitStructure;         //结构定义
- 127   1      
- 128   1        EXTI_InitStructure.EXTI_Mode      = EXT_MODE_Fall;  //中断模式,   EXT_MODE_RiseFall, EXT_MODE_Fall
- 129   1        EXTI_InitStructure.EXTI_Polity    = PolityHigh;     //中断优先级,   PolityLow,PolityHigh
- 130   1        EXTI_InitStructure.EXTI_Interrupt = ENABLE;       //中断允许,     ENABLE或DISABLE
- 131   1        Ext_Inilize(EXT_INT0,&EXTI_InitStructure);        //初始化INT0  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
- 132   1      
- 133   1      //  EXTI_InitStructure.EXTI_Mode      = EXT_MODE_Fall;  //中断模式,   EXT_MODE_RiseFall, EXT_MODE_Fall
- 134   1      //  EXTI_InitStructure.EXTI_Polity    = PolityLow;      //中断优先级,   PolityLow,PolityHigh
- 135   1      //  EXTI_InitStructure.EXTI_Interrupt = ENABLE;       //中断允许,     ENABLE或DISABLE
- 136   1      //  Ext_Inilize(EXT_INT1,&EXTI_InitStructure);        //初始化INT1  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
- 137   1      
- 138   1      //  Ext_Inilize(EXT_INT2,&EXTI_InitStructure);        //初始化INT2  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
- 139   1      //  Ext_Inilize(EXT_INT3,&EXTI_InitStructure);        //初始化INT3  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
- 140   1      //  Ext_Inilize(EXT_INT4,&EXTI_InitStructure);        //初始化INT4  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
- 141   1      }
+ 118          {
+ 119   1        EXTI_InitTypeDef  EXTI_InitStructure;         //结构定义
+ 120   1      
+ 121   1        EXTI_InitStructure.EXTI_Mode      = EXT_MODE_Fall;  //中断模式,   EXT_MODE_RiseFall, EXT_MODE_Fall
+ 122   1        EXTI_InitStructure.EXTI_Polity    = PolityHigh;     //中断优先级,   PolityLow,PolityHigh
+ 123   1        EXTI_InitStructure.EXTI_Interrupt = ENABLE;       //中断允许,     ENABLE或DISABLE
+ 124   1        Ext_Inilize(EXT_INT0,&EXTI_InitStructure);        //初始化INT0  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
+ 125   1      
+ 126   1      //  EXTI_InitStructure.EXTI_Mode      = EXT_MODE_Fall;  //中断模式,   EXT_MODE_RiseFall, EXT_MODE_Fall
+ 127   1      //  EXTI_InitStructure.EXTI_Polity    = PolityLow;      //中断优先级,   PolityLow,PolityHigh
+ 128   1      //  EXTI_InitStructure.EXTI_Interrupt = ENABLE;       //中断允许,     ENABLE或DISABLE
+ 129   1      //  Ext_Inilize(EXT_INT1,&EXTI_InitStructure);        //初始化INT1  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
+ 130   1      
+ 131   1      //  Ext_Inilize(EXT_INT2,&EXTI_InitStructure);        //初始化INT2  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
+ 132   1      //  Ext_Inilize(EXT_INT3,&EXTI_InitStructure);        //初始化INT3  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
+ 133   1      //  Ext_Inilize(EXT_INT4,&EXTI_InitStructure);        //初始化INT4  EXT_INT0,EXT_INT1,EXT_INT2,EXT_INT3,EXT_INT4
+ 134   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    265    ----
+   CODE SIZE        =    227    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----       3
    PDATA SIZE       =   ----    ----

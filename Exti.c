@@ -25,18 +25,15 @@ extern u8 time_counter;//timer0 计数
 extern u8 line_counter;//黑线 计数
 extern u8 time_counter1;//timer1 计数
 extern bit update_flag;//timer1 计时标记
-extern bit tl_flag;
 
 /********************* INT0中断函数 *************************/
 void Ext_INT0 (void) interrupt INT0_VECTOR		//进中断时已经清除标志
 {
 //	P00 = ~P00;
-	u16 temp=65536UL - (MAIN_Fosc / 40UL);
+	u16 temp=65536UL - (MAIN_Fosc / 100000UL);
 	line_counter++;													//黑线计数加1
-	if(line_counter==1)//第一次压线
-	tl_flag=1;//左转标志位置1
-	
 	TR0=0;
+	
 	TH0 = (u8)(temp>> 8);
 	TL0 = (u8)temp;
 	TR0=1;																	//打开定时器0
