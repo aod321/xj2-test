@@ -83,7 +83,7 @@ void adjust_left()
 	//
 		delay_ms(220);
 		//?????
-		for(;temp!=0xf0;temp=TLIN)//???????
+		for(;temp!=0x00;temp=TLIN)//???????
 		{
 		}
 		//??
@@ -109,7 +109,7 @@ void adjust_right()
 	//
 		delay_ms(200);
 		//?????
-		for(;temp!=0xf0;temp=TLIN)//???????
+		for(;temp!=0x00;temp=TLIN)//???????
 		{
 	//		delay_ms(10);
 		}
@@ -188,6 +188,13 @@ void check()
 
 void Inline()		//检测黑线信号，检测到黑线时变为高电平，平时低电平
 {
+	if(P32==1)		//中间灯检测到						
+	{
+		pwm_right(0);								//右转
+		delay_ms(1500);
+		forward();									//恢复
+	
+	}
 	switch(TLIN)
 	{
 		//没检测到黑线时，直行
@@ -200,17 +207,20 @@ void Inline()		//检测黑线信号，检测到黑线时变为高电平，平时低电平
 		case 0x02: 		adjust_right(); 						break;
 				
 		//不可能
-		case 0x03: 								  							break;
+		case 0x03: 		 forward(); 								break;
 		
 //
-		default: break;
+		default:  break;
 	}
 	
 					Line_Count();
 
 }
+
 void Line_Count()						//检测黑线条数
 {
+		
+
 	if(update_flag==1)						//定时100*10us到
 		{
 					update_flag=0;						//标记位清空
@@ -219,9 +229,16 @@ void Line_Count()						//检测黑线条数
 				{
 					line_counter=0;						//黑线数量清空		
 					TR0=0;										//关闭计时器
+					
 				}
 		}
 
+		if(line_counter >=3)						//超车标志线
+		{
+			
+		}
+		
+		
 		
 }
 
@@ -240,12 +257,13 @@ main()
 
 	ClearLine(1);									//LCD删行
 	ClearLine(2);
-		PutString(1,1,"Line_counter:");				//LCD显示		
-		WriteChar(1,7,line_counter);
-		PutString(2,1,dis_code);
-		PutString(2,7,"mode:");
+		
 	//调试用 1-255
 	delay_ms(200);
+PutString(1,1,"Line_counter:");				//LCD显示		
+		WriteChar(1,7,line_counter);
+		PutString(2,1,dis_code);
+//		PutString(2,7,"mode:");
 	while(1)
 	{ 
 		Inline();

@@ -1,4 +1,4 @@
-C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 01:16:23 PAGE 1   
+C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 17:41:50 PAGE 1   
 
 
 C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAIN
@@ -62,7 +62,7 @@ line level    source
   53   1        //调试参数修改转弯模式
   54   1          pwm_left(0);
   55   1          pwm_right(speed);
-C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 01:16:23 PAGE 2   
+C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 17:41:50 PAGE 2   
 
   56   1        //调试参数，1-255
   57   1          delay_ms(2000);
@@ -94,7 +94,7 @@ line level    source
   83   1        //
   84   1          delay_ms(220);
   85   1          //?????
-  86   1          for(;temp!=0xf0;temp=TLIN)//???????
+  86   1          for(;temp!=0x00;temp=TLIN)//???????
   87   1          {
   88   2          }
   89   1          //??
@@ -120,13 +120,13 @@ line level    source
  109   1        //
  110   1          delay_ms(200);
  111   1          //?????
- 112   1          for(;temp!=0xf0;temp=TLIN)//???????
+ 112   1          for(;temp!=0x00;temp=TLIN)//???????
  113   1          {
  114   2        //    delay_ms(10);
  115   2          }
  116   1          //??
  117   1          pwm_left(0);
-C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 01:16:23 PAGE 3   
+C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 17:41:50 PAGE 3   
 
  118   1          pwm_right(speed);
  119   1          //????
@@ -190,7 +190,7 @@ line level    source
  177          
  178          /*****************************检测前面是否有小车*******************************/
  179          
-C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 01:16:23 PAGE 4   
+C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 17:41:50 PAGE 4   
 
  180          void check()
  181          {
@@ -203,81 +203,99 @@ line level    source
  188          
  189          void Inline()   //检测黑线信号，检测到黑线时变为高电平，平时低电平
  190          {
- 191   1        switch(TLIN)
+ 191   1        if(P32==1)    //中间灯检测到            
  192   1        {
- 193   2          //没检测到黑线时，直行
- 194   2          case 0x00:    forward();                  break;
- 195   2          
- 196   2          //右边检测到黑线时,左转
- 197   2          case 0x01:  adjust_left();                break;
- 198   2          
- 199   2          //左边检测到黑线时，右转
- 200   2          case 0x02:    adjust_right();             break;
- 201   2              
- 202   2          //不可能
- 203   2          case 0x03:                                break;
- 204   2          
- 205   2      //
- 206   2          default: break;
- 207   2        }
- 208   1        
- 209   1                Line_Count();
- 210   1      
- 211   1      }
- 212          void Line_Count()           //检测黑线条数
- 213          {
- 214   1        if(update_flag==1)            //定时100*10us到
- 215   1          {
- 216   2                update_flag=0;            //标记位清空
- 217   2      
- 218   2              if(line_counter <=1)        //如果该时间内没有第二根线
- 219   2              {
- 220   3                line_counter=0;           //黑线数量清空    
- 221   3                TR0=0;                    //关闭计时器
- 222   3              }
- 223   2          }
- 224   1      
- 225   1          
- 226   1      }
- 227          
- 228          /*************************主函数***********************************/
- 229          main()
- 230          { 
- 231   1        char dis_code[10]={"---cm"};
- 232   1        Initialize_LCD();// init LCD1602
- 233   1        PCA_Init();//pwm初始化
- 234   1        Timer_config();
- 235   1        EXTI_config();
- 236   1        EA=1;
- 237   1      
- 238   1        check();//初始化检测前方小车
- 239   1        forward(); //直行
- 240   1      
- 241   1        ClearLine(1);                 //LCD删行
-C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 01:16:23 PAGE 5   
+ 193   2          pwm_right(0);               //右转
+ 194   2          delay_ms(1500);
+ 195   2          forward();                  //恢复
+ 196   2        
+ 197   2        }
+ 198   1        switch(TLIN)
+ 199   1        {
+ 200   2          //没检测到黑线时，直行
+ 201   2          case 0x00:    forward();                  break;
+ 202   2          
+ 203   2          //右边检测到黑线时,左转
+ 204   2          case 0x01:  adjust_left();                break;
+ 205   2          
+ 206   2          //左边检测到黑线时，右转
+ 207   2          case 0x02:    adjust_right();             break;
+ 208   2              
+ 209   2          //不可能
+ 210   2          case 0x03:     forward();                 break;
+ 211   2          
+ 212   2      //
+ 213   2          default:  break;
+ 214   2        }
+ 215   1        
+ 216   1                Line_Count();
+ 217   1      
+ 218   1      }
+ 219          
+ 220          void Line_Count()           //检测黑线条数
+ 221          {
+ 222   1          
+ 223   1      
+ 224   1        if(update_flag==1)            //定时100*10us到
+ 225   1          {
+ 226   2                update_flag=0;            //标记位清空
+ 227   2      
+ 228   2              if(line_counter <=1)        //如果该时间内没有第二根线
+ 229   2              {
+ 230   3                line_counter=0;           //黑线数量清空    
+ 231   3                TR0=0;                    //关闭计时器
+ 232   3                
+ 233   3              }
+ 234   2          }
+ 235   1      
+ 236   1          if(line_counter >=3)            //超车标志线
+ 237   1          {
+ 238   2            
+ 239   2          }
+ 240   1          
+ 241   1          
+C51 COMPILER V9.52.0.0   MAIN                                                              04/08/2016 17:41:50 PAGE 5   
 
- 242   1        ClearLine(2);
- 243   1          PutString(1,1,"Line_counter:");       //LCD显示   
- 244   1          WriteChar(1,7,line_counter);
- 245   1          PutString(2,1,dis_code);
- 246   1          PutString(2,7,"mode:");
- 247   1        //调试用 1-255
- 248   1        delay_ms(200);
- 249   1        while(1)
- 250   1        { 
- 251   2          Inline();
- 252   2        //  pwm_left(speed);
- 253   2        //  pwm_right(0);
- 254   2      
- 255   2         }
- 256   1       }
- 257          
- 258          
+ 242   1          
+ 243   1      }
+ 244          
+ 245          /*************************主函数***********************************/
+ 246          main()
+ 247          { 
+ 248   1        char dis_code[10]={"---cm"};
+ 249   1        Initialize_LCD();// init LCD1602
+ 250   1        PCA_Init();//pwm初始化
+ 251   1        Timer_config();
+ 252   1        EXTI_config();
+ 253   1        EA=1;
+ 254   1      
+ 255   1        check();//初始化检测前方小车
+ 256   1        forward(); //直行
+ 257   1      
+ 258   1        ClearLine(1);                 //LCD删行
+ 259   1        ClearLine(2);
+ 260   1          
+ 261   1        //调试用 1-255
+ 262   1        delay_ms(200);
+ 263   1      PutString(1,1,"Line_counter:");       //LCD显示   
+ 264   1          WriteChar(1,7,line_counter);
+ 265   1          PutString(2,1,dis_code);
+ 266   1      //    PutString(2,7,"mode:");
+ 267   1        while(1)
+ 268   1        { 
+ 269   2          Inline();
+ 270   2        //  pwm_left(speed);
+ 271   2        //  pwm_right(0);
+ 272   2      
+ 273   2         }
+ 274   1       }
+ 275          
+ 276          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    497    ----
-   CONSTANT SIZE    =     30    ----
+   CODE SIZE        =    501    ----
+   CONSTANT SIZE    =     24    ----
    XDATA SIZE       =      5      20
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----

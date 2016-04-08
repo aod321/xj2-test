@@ -30,6 +30,7 @@ extern bit update_flag;//timer1 计时标记
 void Ext_INT0 (void) interrupt INT0_VECTOR		//进中断时已经清除标志
 {
 //	P00 = ~P00;
+	
 	line_counter++;													//黑线计数加1
 	TR0=1;																	//打开定时器0
 }
