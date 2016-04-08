@@ -7,18 +7,19 @@
 
 ******************************************/
 
-
+#include "config.h"
 
 #include	"timer.h"
 extern u8 time_counter;//timer0 计数
 extern u8 line_counter;//黑线 计数
-extern bit update_flag;//timer1 计时标记
+extern bit update_flag;//timer0 计时标记
+extern u8 time1_counter;//timer1 计数
 
 /********************* Timer0中断函数************************/
 void timer0_int (void) interrupt TIMER0_VECTOR
 {
 	time_counter++;
-	if(time_counter>=80)	//80 * 1/40 s=2s
+	if(time_counter>=40)	//40 * 1/40 s=1s
  {
 	 time_counter=0;
 	 update_flag=1;
@@ -28,8 +29,14 @@ void timer0_int (void) interrupt TIMER0_VECTOR
 /********************* Timer1中断函数************************/
 void timer1_int (void) interrupt TIMER1_VECTOR
 {
- 
-
+			time1_counter++;//1/40s
+			if(time1_counter==5)
+			{
+				pwm_left(speed);
+				pwm_right(speed);
+				TR1=0;
+			}
+			
 }
 
 /********************* Timer2中断函数************************/
@@ -59,7 +66,7 @@ void	Timer_config(void)
 	TIM_InitStructure.TIM_Interrupt = ENABLE;				//中断是否允许,   ENABLE或DISABLE
 	TIM_InitStructure.TIM_ClkSource = TIM_CLOCK_1T;			//指定时钟源, TIM_CLOCK_1T,TIM_CLOCK_12T,TIM_CLOCK_Ext
 	TIM_InitStructure.TIM_ClkOut    = ENABLE;				//是否输出高速脉冲, ENABLE或DISABLE
-	TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / 1000);		//初值,
+	TIM_InitStructure.TIM_Value     = 65536UL - (MAIN_Fosc / 40);		//初值, 
 	TIM_InitStructure.TIM_Run       = DISABLE;				//是否初始化后启动定时器, ENABLE或DISABLE
 	Timer_Inilize(Timer1,&TIM_InitStructure);				//初始化Timer1	  Timer0,Timer1,Timer2
 

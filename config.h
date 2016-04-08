@@ -14,6 +14,9 @@
 #include	"STC15F2K60S2.H"
 #include 		"pwm.h"
 #include  "Lcd.h"
+
+#define speed 150//正常行驶速度 0-255
+
 void stop();
 void Line_Count();
 
